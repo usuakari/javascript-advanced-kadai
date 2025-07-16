@@ -21,12 +21,17 @@ const textLists = [
 let untyped = '';
 let typed = '';
 let score = 0;
+let correctCountEach = 0;
 
 //必要なHTML要素の取得
 const untypedfiled = document.getElementById('untyped');
 const typefiled = document.getElementById('typed');
 const wrap = document.getElementById('wrap');
 const count = document.getElementById('count');
+const countCorrect =document.getElementById('count-correct');
+
+//正タイプ数の初期値（ゼロ）を非表示にする
+countCorrect.style.display = 'none';
 
 //ランダムなテキストを表示
 const createText = () => {
@@ -61,6 +66,13 @@ const keyPress = e => {
 
   //スコアのインクリメント
   score++;
+
+  //正タイプ数のインクリメント（１単語内）
+  correctCountEach++;
+
+  //正タイプ数の表示
+  countCorrect.textContent = correctCountEach;
+
 
   //typedを、「一度も入力されていない文字（untyped）の最初の一文字」に
   typed += untyped.substring(0,1);
@@ -109,6 +121,9 @@ const timer = () =>{
 
 // ゲームスタート時の処理
 start.addEventListener('click',() => {
+  //正タイプ数の初期値（ゼロ）を表示する
+  countCorrect.style.display = '';
+
   //カウントダウンタイマーを開始する
   timer();
 
